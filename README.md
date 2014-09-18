@@ -20,8 +20,8 @@ rreload.sh # don't worry about the "no such process" output
 ```
 
 ### Vanilla repl
-In case you've got leiningen on your host machine you may connect to Riemann with your favourite development environment. This line should work both from within the vagrant machine (in case you do `vagrant ssh` first) and from your host machine.
-`lein repl :connect localhost:5557`
+You can do this either from within the vagrant machine or from the host depending on if you have leiningen installed on the host or not.
+```lein repl :connect localhost:5557```
 ```clj
 (in-ns 'riemann.config) ;; tell the repl that we want to work with the riemann.config namespace
 (streams #(info "received event XXXXX " %)) ;; load code that outputs all received events
