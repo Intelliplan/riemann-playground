@@ -1,6 +1,6 @@
 ; vim: filetype=clojure
 ; -*- mode: Clojure; fill-column: 75; comment-column: 50; -*-
-(logging/init :file "/var/log/riemann.log")
+(logging/init :file "/vagrant/riemann/riemann.log")
 ; brief information http://aphyr.github.com/riemann/configuring.html
 ; more information http://aphyr.github.com/riemann/api.html
 
@@ -25,4 +25,4 @@
 ; use :keep-keys to pass tags onto expired events as well
 (periodically-expire 60 {:keep-keys [:host :service :tags]})
 
-; ... add your stuff here ...
+(include "/vagrant/riemann-config-user.clj")
