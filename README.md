@@ -1,5 +1,3 @@
-# Riemann playground
-
 Vagrant to set up a Riemann instance ready to accept repl connections.
 
 # Usage
