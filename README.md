@@ -14,7 +14,7 @@ tail -f riemann/riemann.log # the log will show up after a while
 ```
 
 ### Work without repl
-Or if you don't want to hack Clojure stragiht into the runtime through the repl, you can also work the traditional way:
+If you don't want to hack Clojure stragiht into the runtime through the repl, you can work the traditional way:
 ```bash
 vagrant ssh
 emacs riemann-config-user.clj
@@ -22,10 +22,10 @@ rreload.sh # don't worry about the "no such process" output
 ```
 
 ### Vanilla repl
-In case you've got leiningen on your host machine you may now connect to Riemann with your favourite development environment. This line should work both from within the vagrant machine (in case you do `vagrant ssh` first) and from your host machine.
+In case you've got leiningen on your host machine you may connect to Riemann with your favourite development environment. This line should work both from within the vagrant machine (in case you do `vagrant ssh` first) and from your host machine.
 `lein repl :connect localhost:5557`
 ```clj
-(in-ns 'riemann.config) ;; 
+(in-ns 'riemann.config) ;; tell the repl that we want to work with the riemann.config namespace
 (streams #(info "received event XXXXX " %)) ;; load code that outputs all received events
 (riemann.bin/reload!) ;; Riemann requires us to explicitly tell it when to actually use the new config
 ```
@@ -42,6 +42,7 @@ C-c C-k #reload entire file
 #reload the last (remarked) form (riemann.bin/reload!) by placing the cursor right after the last paren and pressing C-x C-e
 ```
 
+### Basic process operations
 If you for some reason want to restart Riemann, you may also use these (don't worry about the "no such process" output):
 ```bash
 rstart.sh
