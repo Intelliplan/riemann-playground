@@ -35,6 +35,7 @@ emacs riemann-config-user.clj
 M-x cider
 #enter 127.0.0.1 and then 5557
 C-u C-c C-z
+(in-ns 'riemann.config)
 #go back to riemann-config-user.clj
 C-c C-k #reload entire file
 #reload the last (remarked) form (riemann.bin/reload!) by placing the cursor right after the last paren and pressing C-x C-e
@@ -46,4 +47,5 @@ If you for some reason want to restart Riemann, you may also use these (don't wo
 rstart.sh
 rstop.sh
 rrestart.sh
+rreload.sh
 ```
