@@ -12,7 +12,7 @@ tail -f riemann/riemann.log # the log will show up after a while
 ```
 
 ### Work without repl
-If you don't want to hack Clojure stragiht into the runtime through the repl, you can work the traditional way:
+If you don't want to hack Clojure straight into the runtime through the repl, you can work the traditional way:
 ```bash
 vagrant ssh
 emacs riemann-config-user.clj
