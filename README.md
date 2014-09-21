@@ -37,9 +37,6 @@ If you use emacs and CIDER you could, instead of connecting directly with leinin
 emacs riemann-config-user.clj
 M-x cider
 #enter 127.0.0.1 and then 5557
-C-u C-c C-z
-(in-ns 'riemann.config)
-#go back to riemann-config-user.clj
 C-c C-k #reload entire file
 #reload the last (remarked) form (riemann.bin/reload!) by placing the cursor right after the last paren and pressing C-x C-e
 ```
