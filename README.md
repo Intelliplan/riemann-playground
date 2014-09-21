@@ -7,12 +7,15 @@ Vagrant to set up a Riemann instance ready to accept repl connections.
 ```bash
 vagrant up
 vagrant ssh
-nohup rstart.sh & # the first time you do this, all leiningen dependencies on java and clojure libraries will be downloaded to the vagrant machine's maven repo
+rstart.sh # the first time you do this, all leiningen dependencies on java and clojure libraries will be downloaded to the vagrant machine's maven repo
 tail -f riemann/riemann.log # the log will show up after a while
 ```
 
+### Burst some test events
+Use [this tool](https://github.com/Intelliplan/riemann-burst) to burst some events that will show up in the Riemann log.
+
 ### Work without repl
-If you don't want to hack Clojure straight into the runtime through the repl, you can work the traditional way:
+If you don't want to hack the Riemann config stragiht into the runtime through the repl, you can work the traditional way:
 ```bash
 vagrant ssh
 emacs riemann-config-user.clj
@@ -24,7 +27,7 @@ You can do this either from within the vagrant machine or from the host dependin
 ```lein repl :connect localhost:5557```
 ```clj
 (in-ns 'riemann.config) ;; tell the repl that we want to work with the riemann.config namespace
-(streams #(info "received event XXXXX " %)) ;; load code that outputs all received events
+(streams #(info "received event " %)) ;; load code that outputs all received events
 (riemann.bin/reload!) ;; Riemann requires us to explicitly tell it when to actually use the new config
 ```
 
