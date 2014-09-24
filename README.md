@@ -13,7 +13,7 @@ rstart.sh # the first time you do this, all leiningen dependencies on java and c
 
 ### Burst some test events
 Use [this tool](https://github.com/Intelliplan/riemann-burst) to burst some events that will show up in the Riemann log. If you have done ´vagrant up´, you should have it in a dir named 'riemann-burst' in your 'riemann-playground' root dir.
-It should be possible to run this from within the vagrant guest machine, but unfortunately this does not work a the moment, so do this from the host instead (you'll need to have [leiningen](http://leiningen.org/) installed).
+It should be possible to run this from within the vagrant guest machine, but unfortunately this does not work a the moment, so do this from the host instead (you'll need to have [leiningen](http://leiningen.org/) and a [java devkit](#install-java) installed).
 ```bash
  # vagrant ssh # Skip this, riemann fails to connect from the vagrant machine
 cd riemann-burst
@@ -63,4 +63,11 @@ rreload.sh
 ### Riemann log
 ```bash
 tail -f riemann/riemann.log
+```
+
+### Install Java
+```bash
+sudo yum -y install java-1.7.0-openjdk-devel
+export JAVA_HOME=/etc/alternatives/jre
+export PATH=$PATH:$JAVA_HOME/bin
 ```

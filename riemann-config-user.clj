@@ -9,7 +9,8 @@
 (defn metric-series?   [e] (= "debug-metric-series" (:service e)))
 (defn strange-message? [e] (re-find #".*strange.*" (:description e)))
 
-(defmacro where' [pred & streams] `(where* (fn [e#] (and (metric-series? e#) (~pred e#))) ~@streams))
+(defmacro where' [pred & streams]
+  `(where* (fn [e#] (and (metric-series? e#) (~pred e#))) ~@streams))
 
 
 
