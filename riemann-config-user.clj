@@ -1,20 +1,33 @@
 (in-ns 'riemann.config)
 
+(defn seqify [s] (if (sequential? s) s [s]))
+
 (defn print-description-and-metric [e]
-  (println (:description e) " now: " (:metric e)))
+  (doseq [e (seqify e)]
+    (println (:description e) (if-let [m (:metric e)] (str " now: " m) ""))))
 
-(defn when-metric-series-and "Creates a function that returns true when 'e-pred' evaluates to true for 'e', and has service 'debug-metric-series'."
-  [e-pred] (fn [e] (and (= (:service e) "debug-metric-series") (e-pred e))))
+(defn metric-series?   [e] (= "debug-metric-series" (:service e)))
+(defn strange-message? [e] (re-find #".*strange.*" (:description e)))
 
-(defn print-when "For 'debug-metric-series' events, print metric when 'e-pred' is true for any event."
-  [e-pred] (where* (when-metric-series-and e-pred)
-                   print-description-and-metric))
+(defmacro where' [pred & streams] `(where* (fn [e#] (and (metric-series? e#) (~pred e#))) ~@streams))
 
-(streams
- (print-when
-  (fn [{:keys [metric]}]
-    (or (= metric 1)
-        (= metric 2)))))
+
+
+#_(streams print-description-and-metric) ;;prints _all_ events
+
+#_(streams ;;prints all 'debug-metric-series' events
+ (where' (fn [e] true) print-description-and-metric))
+
+#_(streams ;;finds spikes
+ (where' (fn [e] (> (:metric e) 8)) print-description-and-metric))
+
+#_(streams ;;finds strange messages
+ (where' strange-message? print-description-and-metric))
+
+#_(streams
+ (where' strange-message?
+   (rollup 0 5 print-description-and-metric)))
+
 
 ;;riemann requires a specific call to pick up the newly loaded config changes
 ;;in emacs with CIDER, place cursor right after the right paren below and press C-x C-e

@@ -9,7 +9,6 @@ vagrant up
 vagrant ssh
 rstart.sh # the first time you do this, all leiningen dependencies on java and clojure libraries will be downloaded to the vagrant machine's maven repo
  # when (after 30 seconds or so) you see the info message "main - riemann.core - Hyperspace core online", Riemann is ready to accept events
-tail -f riemann/riemann.log
 ```
 
 ### Burst some test events
@@ -22,7 +21,7 @@ lein repl
 ```
 ```clj
 (use 'riemann-burst.core)
-(burst! 100 (events 10 {:service "debug-metric-series" :description "hello!"} (cycle [1 2 3])))
+(burst! 100 (events {:service "debug-metric-series" :description "hello!"} (take 10 (cycle [1 2 3]))))
 ```
 
 ### Work without repl
@@ -59,4 +58,9 @@ rstart.sh
 rstop.sh
 rrestart.sh
 rreload.sh
+```
+
+### Riemann log
+```bash
+tail -f riemann/riemann.log
 ```
