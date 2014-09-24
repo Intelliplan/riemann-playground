@@ -15,7 +15,7 @@
 
 #_(streams print-description-and-metric) ;;prints _all_ events
 
-#_(streams ;;prints all 'debug-metric-series' events
+(streams ;;prints all 'debug-metric-series' events
  (where' (fn [e] true) print-description-and-metric))
 
 #_(streams ;;finds spikes

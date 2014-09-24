@@ -21,7 +21,7 @@ lein repl
 ```
 ```clj
 (use 'riemann-burst.core)
-(burst! 100 (events {:service "debug-metric-series" :description "hello!"} (take 10 (cycle [1 2 3]))))
+(burst! 100 (apply-metric-series {:service "debug-metric-series" :description "hello!"} [1 2 3 4 5]))
 ```
 
 ### Work without repl
