@@ -8,11 +8,22 @@ Vagrant to set up a Riemann instance ready to accept repl connections.
 vagrant up
 vagrant ssh
 rstart.sh # the first time you do this, all leiningen dependencies on java and clojure libraries will be downloaded to the vagrant machine's maven repo
-tail -f riemann/riemann.log # the log will show up after a while
+ # when (after 30 seconds or so) you see the info message "main - riemann.core - Hyperspace core online", Riemann is ready to accept events
+tail -f riemann/riemann.log
 ```
 
 ### Burst some test events
-Use [this tool](https://github.com/Intelliplan/riemann-burst) to burst some events that will show up in the Riemann log.
+Use [this tool](https://github.com/Intelliplan/riemann-burst) to burst some events that will show up in the Riemann log. If you have done ´vagrant up´, you should have it in a dir named 'riemann-burst' in your 'riemann-playground' root dir.
+It should be possible to run this from within the vagrant guest machine, but unfortunately this does not work a the moment, so do this from the host instead (you'll need to have [leiningen](http://leiningen.org/) installed).
+```bash
+ # vagrant ssh # Skip this, riemann fails to connect from the vagrant machine
+cd riemann-burst
+lein repl
+```
+```clj
+(use 'riemann-burst.core)
+(burst! 100 (events 10 {:service "debug-metric-series" :description "hello!"} (cycle [1 2 3])))
+```
 
 ### Work without repl
 If you don't want to hack the Riemann config stragiht into the runtime through the repl, you can work the traditional way:
