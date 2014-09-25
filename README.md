@@ -25,7 +25,7 @@ lein repl
 ```
 
 ### Work without repl
-If you don't want to hack the Riemann config stragiht into the runtime through the repl, you can work the traditional way:
+If you don't want to hack the Riemann config straight into the runtime through the repl, you can work the traditional way:
 ```bash
 vagrant ssh
 emacs riemann-config-user.clj
